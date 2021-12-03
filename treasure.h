@@ -18,12 +18,12 @@ public:
   constexpr Treasure(ValueType val)
       : value(val) {}
 
-  constexpr ValueType evaluate()
+  constexpr ValueType evaluate() const
   {
     return value;
   }
 
-  constexpr ValueType getLoot() const
+  constexpr ValueType getLoot()
   {
     ValueType tmp = value;
     value = 0;
@@ -31,8 +31,10 @@ public:
   }
 };
 
-// TODO SafeTreasure<ValueType>
+template <typename ValueType>
+using SafeTreasure = Treasure<ValueType, false>;
 
-// TODO TrappedTreasure<ValueType>
+template <typename ValueType>
+using TrappedTreasure = Treasure<ValueType, true>;
 
 #endif // __TREASURE_H__
