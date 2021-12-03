@@ -29,8 +29,6 @@ public:
     value = 0;
     return tmp;
   }
-
-  // TODO nie wiem, czy pole IsTrapped trzeba jakoś specjalie oznaczać
 };
 
 // TODO SafeTreasure<ValueType>
