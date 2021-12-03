@@ -30,7 +30,6 @@ struct Adventurer
 {
 private:
 	ValueType treasure;
-	ValueType tmp;
 
 public:
 	constexpr Adventurer()
@@ -41,9 +40,19 @@ public:
 		return false;
 	}
 
+	constexpr void loot(ValueType &&lootingTreasure)
+	{
+		if constexpr (!lootingTreasure.IsTrapped)
+		{
+			treasure += lootingTreasure.loot();
+		}
+	}
+
 	constexpr ValueType pay() const
 	{
-		return (tmp = treasure) + (treasure = 0);
+		ValueType tmp = treasure;
+		treasure = 0;
+		return tmp;
 	}
 };
 
@@ -52,7 +61,6 @@ struct Adventurer<ValueType, true>
 {
 private:
 	ValueType treasure;
-	ValueType tmp;
 	strength_t strength;
 
 public:
@@ -71,9 +79,24 @@ public:
 		return strength;
 	}
 
+	constexpr void loot(ValueType &&lootingTreasure)
+	{
+		if constexpr (!lootingTreasure.IsTrapped)
+		{
+			treasure += lootingTreasure.loot();
+		}
+		else if constexpr (strength > 0)
+		{
+			treasure += lootingTreasure.loot();
+			strength /= 2;
+		}
+	}
+
 	constexpr ValueType pay() const
 	{
-		return (tmp = treasure) + (treasure = 0);
+		ValueType tmp = treasure;
+		treasure = 0;
+		return tmp;
 	}
 };
 
@@ -86,7 +109,6 @@ struct Veteran
 {
 private:
 	ValueType treasure;
-	ValueType tmp;
 	strength_t strength;
 
 public:
@@ -103,9 +125,24 @@ public:
 		return strength;
 	}
 
+	constexpr void loot(ValueType &&lootingTreasure)
+	{
+		if constexpr (!lootingTreasure.IsTrapped)
+		{
+			treasure += lootingTreasure.loot();
+		}
+		else if constexpr (strength > 0)
+		{
+			treasure += lootingTreasure.loot();
+			strength /= 2;
+		}
+	}
+
 	constexpr ValueType pay() const
 	{
-		return (tmp = treasure) + (treasure = 0);
+		ValueType tmp = treasure;
+		treasure = 0;
+		return tmp;
 	}
 };
 
