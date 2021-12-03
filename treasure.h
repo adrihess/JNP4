@@ -13,7 +13,6 @@ struct Treasure
 {
 private:
   ValueType value;
-  ValueType tmp;
 
 public:
   constexpr Treasure(ValueType val)
@@ -24,9 +23,11 @@ public:
     return value;
   }
 
-  constexpr ValueType getLoot()
+  constexpr ValueType getLoot() const
   {
-    return (tmp = value) + (value = 0);
+    ValueType tmp = value;
+    value = 0;
+    return tmp;
   }
 
   // TODO nie wiem, czy pole IsTrapped trzeba jakoś specjalie oznaczać
