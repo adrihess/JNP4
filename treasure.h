@@ -11,6 +11,7 @@ concept integer = is_integral<T>::value;
 template <typename ValueType, bool IsTrapped>
 struct Treasure
 {
+  // TODO
 };
 
 #endif // __TREASURE_H__
